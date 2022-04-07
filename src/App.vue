@@ -1,9 +1,21 @@
 <template>
   <div class="app">
-    <form>
+    <form @submit.prevent>
       <h1>Добавление товара</h1>
-      <input v-bind:value="title" @input="title=$event.target.value" class="input" type="text" placeholder="Название" />
-      <input v-bind:value="body"  @input="body=$event.target.value" class="input" type="text" placeholder="Описание" />
+      <input
+        v-bind:value="title"
+        @input="title = $event.target.value"
+        class="input"
+        type="text"
+        placeholder="Название"
+      />
+      <input
+        v-bind:value="body"
+        @input="body = $event.target.value"
+        class="input"
+        type="text"
+        placeholder="Описание"
+      />
       <button class="btn" @click="createProduct">Создание</button>
     </form>
     <div>
@@ -29,7 +41,16 @@ export default {
     };
   },
   methods: {
-    createProduct() {},
+    createProduct() {
+      const newProduct = {
+        id: Date.now(),
+        title: this.title,
+        body: this.body,
+      };
+      this.products.push(newProduct);
+      this.title = "";
+      this.body = "";
+    },
   },
 };
 </script>
